@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - exodb@localhost" uuid="aa3cf718-f7cb-4155-a701-de168063d082">
+    <database-info product="MySQL" version="5.6.23-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="exodb"/>
+    <table name="comments" schema="" catalog="exodb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="text" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVAoNik=" version="true"/>
+      <column name="news_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_comments_news1" columns="news_id" ref-table="news" ref-schema="" ref-catalog="exodb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_comments_user1" columns="user_id" ref-table="user" ref-schema="" ref-catalog="exodb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_comments_news1_idx" unique="false" columns="news_id"/>
+      <index name="fk_comments_user1_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="friends" schema="" catalog="exodb" type="TABLE">
+      <column name="first_friend" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="second_friend" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <foreign-key name="fk_first_friend" columns="first_friend" ref-table="user" ref-schema="" ref-catalog="exodb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_second_friend" columns="second_friend" ref-table="user" ref-schema="" ref-catalog="exodb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_first_friend_idx" unique="false" columns="first_friend"/>
+      <index name="fk_second_friend_idx" unique="false" columns="second_friend"/>
+    </table>
+    <table name="news" schema="" catalog="exodb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="caption" sqlType="TINYTEXT" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="text" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="coun_tlike" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVAoNik=" version="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_news_user" columns="user_id" ref-table="user" ref-schema="" ref-catalog="exodb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_comments_news1" table="comments" schema="" catalog="exodb" columns="news_id"/>
+      <index name="fk_news_user_idx" unique="false" columns="user_id"/>
+    </table>
+    <table name="user" schema="" catalog="exodb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_comments_user1" table="comments" schema="" catalog="exodb" columns="user_id"/>
+      <exported-key name="fk_first_friend" table="friends" schema="" catalog="exodb" columns="first_friend"/>
+      <exported-key name="fk_second_friend" table="friends" schema="" catalog="exodb" columns="second_friend"/>
+      <exported-key name="fk_news_user" table="news" schema="" catalog="exodb" columns="user_id"/>
+    </table>
+  </data-source>
+</component>
